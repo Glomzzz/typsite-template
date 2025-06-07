@@ -1,4 +1,7 @@
 # Typsite Template
+
+See: [Typsite](https://github.com/Glomzzz/typsite)
+
 First and foremost, prepare your Nix and Flake:
 -   Ensure you have enabled `experimental-features = nix-command flakes` in your Nix configuration.
 
