@@ -1,0 +1,45 @@
+name: "Deploy"
+on:
+  pull_request:
+  push:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+env:
+  TYPSITE_BIN_NAME: 'typsite-x86_64-unknown-linux-gnu'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: typst-community/setup-typst@v4
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+    - uses: robinraju/release-downloader@v1
+      id: typsite-release
+      with:
+        repository: 'Glomzzz/typsite'
+        latest: true
+        fileName: ${{ env.TYPSITE_BIN_NAME }}
+    - name: Make binary executable
+      run: chmod +x ./$TYPSITE_BIN_NAME
+    - name: "Build Typsite"
+      run: ./$TYPSITE_BIN_NAME c
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./publish
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,21 @@
+[default_metadata.content]
+# you can add any default metadata you want here
+title = "Untitled"
+taxon = ""
+date = "Unknown Date"
+author = "Unknown Author"
+test = "TEST!!!!ddddd"
+[default_metadata.options]
+heading_numbering = "Bullet" # Bullet | Roman | Alphabet | None
+[default_metadata.graph]
+parent = "index.typ" # the default parent page
+
+[typst_lib]
+# where the typst library is located, those typst files won't be compiled to html
+# but will be available for import in the typst files
+paths = [ "lib.typ", "util.typ" ] #starts from the typst root
+
+[code_fallback_style]
+dark = "#d3c6aa"
+light = "#5c6a72"
+

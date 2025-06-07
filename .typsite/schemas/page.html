@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{page_title}</title>
+  <link rel="stylesheet" href="../assets/schemas/page.css" />
+  <link rel="stylesheet" href="../assets/math-block.css" />
+  <link rel="stylesheet" href="../assets/math-inline.css" />
+</head>
+
+<body>
+  <header class="header" parent="{has_parent}">
+    <nav class="nav">
+      <div class="logo">
+        <span onclick="window.location.href='{slug@parent}'" title="{title@parent}">« {title@parent}</span>
+      </div>
+    </nav>
+  </header>
+  <div id="grid-wrapper">
+    <article>
+      <section class="block" id="{slug@anchor}">
+        <details open>
+          <summary>
+            <header>
+              <h1>
+                <metadata get="title" /> 
+              </h1>
+              <div class="metadata">
+                <ul>
+                  <li class="meta-item">
+                    <metadata get="author" />
+                  </li>
+                  <li class="meta-item">
+                    <metadata get="date" />
+                  </li>
+                  <li class="meta-item">
+                    <span class="link local"><a href="https://github.com/Glomzzz/typsite" title="Source">Source</a></span>
+                  </li>
+                </ul>
+              </div>
+            </header>
+          </summary>
+          <content /> <!-- Where to put Content-->
+        </details>
+      </section>
+      <footer></footer>
+    </article>
+    <sidebar /> <!-- Where to put sidebar -->
+  </div>
+
+</body>
+
+</html>
