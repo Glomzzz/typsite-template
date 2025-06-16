@@ -26,8 +26,38 @@ jobs:
         fileName: ${{ env.TYPSITE_BIN_NAME }}
     - name: Make binary executable
       run: chmod +x ./$TYPSITE_BIN_NAME
-    - name: "Build Typsite"
-      run: ./$TYPSITE_BIN_NAME c
+    - name: Typsite init 
+      run: |
+          ./$TYPSITE_BIN_NAME clean
+          ./$TYPSITE_BIN_NAME init
+    # here we have to try multiple times
+    # since there are network error caused by typst packages randomly
+    - name: Typsite compile
+      continue-on-error: true
+      id: compile_1
+      run: |
+          ./$TYPSITE_BIN_NAME clean
+          ./$TYPSITE_BIN_NAME c
+    - name: Typsite compile (retry 1)
+      continue-on-error: true
+      id: compile_2
+      if: steps.compile_1.outcome == 'failure'
+      run: |
+          ./$TYPSITE_BIN_NAME clean
+          ./$TYPSITE_BIN_NAME c
+    - name: Typsite compile (retry 2)
+      continue-on-error: true
+      id: compile_3
+      if: steps.compile2.outcome == 'failure'
+      run: |
+          ./$TYPSITE_BIN_NAME clean
+          ./$TYPSITE_BIN_NAME c
+    - name: Typsite compile (retry 3)
+      id: compile_4
+      if: steps.compile3.outcome == 'failure'
+      run: |
+          ./$TYPSITE_BIN_NAME clean
+          ./$TYPSITE_BIN_NAME c
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
