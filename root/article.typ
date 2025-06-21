@@ -1,4 +1,4 @@
-#import "lib.typ": *
+#import "/lib/lib.typ": *
 
 #show: schema.with("page")
 
@@ -7,7 +7,7 @@
 #date[2025-05-30 22:51]
 #author[Glomzzz]
 
-#text-align(center)[TODO....]
+#html.align(center)[TODO....]
 
 = 元数据
 == 页面设置
@@ -35,6 +35,8 @@
 == 内联
 
 == 代码
+=== Theme
+=== Syntax
 
 == 样式
 === 对齐

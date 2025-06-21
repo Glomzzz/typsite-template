@@ -12,6 +12,7 @@ nav#toc li>ul {
   padding-left: 1em;
 }
 
+
 nav#toc,
 nav#toc a {
   color: light-dark(#555, white);
@@ -23,7 +24,6 @@ nav {
 }
 
 nav .block{
-
   width: fit-content;
 }
 

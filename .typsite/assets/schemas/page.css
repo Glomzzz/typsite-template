@@ -10,7 +10,7 @@
   --background-color-code: rgba(0, 100, 100, 0.04);
 
   --hover-color-block: rgba(0, 100, 255, 0.04);
-  --hover-color-link: rgba(0, 100, 255, .1);
+  --hover-color-link: rgba(0, 100, 255, 0.1);
   --target-color: rgb(67, 92, 255);
 
   --link-color: black;
@@ -20,7 +20,7 @@
   --span-taxon-color: #444;
   --article-taxon-color: #888;
   --mark-color: rgb(255, 255, 151);
-  --filter-math: none;
+  --auto-filter: none;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,7 +32,7 @@
     --background-color-code: rgba(150, 150, 150, 0.2);
 
     --hover-color-block: rgba(100, 162, 255, 0.06);
-    --hover-color-link: rgba(100, 162, 255, .2);
+    --hover-color-link: rgba(100, 162, 255, 0.2);
     --target-color: rgb(255, 255, 151);
 
     --link-color: white;
@@ -40,19 +40,57 @@
     --logo-color: #999;
     --logo-hover-color: #eee;
     --span-taxon-color: #bbb;
-    --filter-math: invert(100%);
+    --auto-filter: invert(100%);
   }
 }
 
 body {
-  font-family: 'source serif pro', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Inria Sans", "Noto Sans SC", sans-serif;
+}
+
+pre,
+code {
+  font-family: monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Inria Sans", sans-serif;
+}
+
+nav {
+  font-family: "Inria Sans", sans-serif;
+}
+
+thead {
+  font-family: "Inria Sans", sans-serif;
+}
+
+body {
   font-optical-sizing: auto;
   hyphens: auto;
   background-color: var(--background-color);
 }
-p{
-  line-height: 1.65;
-  margin-bottom: 0.55em;
+p {
+  line-height: 1.55;
+  margin-bottom: 0.65em;
+}
+
+p + ul {
+  margin-top: -0.55em;
+}
+
+ul {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+ul + p {
+  margin-top: 0.15em;
 }
 
 /* !forest */
@@ -66,13 +104,17 @@ th {
   padding: 0 1rem;
 }
 
+.auto-filter svg { 
+  filter: var(--auto-filter);
+}
+
 /* !forest */
 .footnote-definition:last-child {
   margin-bottom: 1em;
 }
 
 /* !forest */
-.footnote-definition>p {
+.footnote-definition > p {
   display: inline;
 }
 
@@ -86,7 +128,7 @@ th {
   border: 1px solid var(--target-color);
 }
 
-.footnote-definition:target>.footnote-definition-label {
+.footnote-definition:target > .footnote-definition-label {
   border: 1px solid var(--target-color);
 }
 
@@ -111,7 +153,7 @@ h1,
 h2,
 h3,
 h4 {
-  margin-top: .5em;
+  margin-top: 0.5em;
   margin-bottom: 1em;
 }
 
@@ -132,44 +174,22 @@ p {
   margin-top: 0;
 }
 
-article {
-  p + ul {
-    margin-top: 0.5em;
-  }
 
-  ul + p {
-    margin-top: 0.5em;
-  }
 
-  ul {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-  }
 
-  li > ul {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-  }
-  p > ul {
-    margin-bottom: 0.5em;
-  }
-  li > p {
-    margin-bottom: 0.3em;
-  }
-}
-
-details>summary {
+details > summary {
   list-style-type: none;
   outline: none;
+  margin-bottom: 0.25em;
 }
 
-details>summary>header {
+details > summary > header {
   display: inline;
 }
 
 /* no effect */
-details>summary::marker,
-details>summary::-webkit-details-marker {
+details > summary::marker,
+details > summary::-webkit-details-marker {
   display: none;
 }
 
@@ -178,8 +198,16 @@ details h1 {
   display: inline;
 }
 
-details>summary {
+details > summary {
   list-style-type: none;
+}
+
+header .metadata {
+  display: none;
+}
+
+header[show-metadata="true"] .metadata {
+  display: block;
 }
 
 span.taxon {
@@ -187,36 +215,36 @@ span.taxon {
   font-weight: 500;
 }
 
-section .block[data-taxon] details>summary>header>h1 {
+section .block[data-taxon] details > summary > header > h1 {
   font-size: 15pt;
 }
 
-article>section>details>summary>header>h1 {
+article > section > details > summary > header > h1 {
   font-size: 1.5em;
 }
 
-article>section>details>summary>header {
+article > section > details > summary > header {
   display: block;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
-article>section>details>summary>header>h1>.taxon {
+article > section > details > summary > header > h1 > .taxon {
   display: block;
-  font-size: .9em;
+  font-size: 0.9em;
   color: var(--article-taxon-color);
   padding-bottom: 5pt;
 }
 
-section.block>details {
+section.block > details {
   margin-bottom: 0.4em;
 }
 
-section.block>details[open] {
+section.block > details[open] {
   margin-bottom: 1em;
 }
 
-.link-list>section.block>details {
-  margin-bottom: .25em;
+.link-list > section.block > details {
+  margin-bottom: 0.25em;
 }
 
 .block {
@@ -228,16 +256,13 @@ section.block>details[open] {
 
 .block {
   width: 98%;
-  border-radius: var(--radius)
+  border-radius: var(--radius);
 }
 
 .block:hover {
   background-color: var(--hover-color-block);
 }
 
-.block.hide-metadata>details>summary>header>.metadata {
-  display: none;
-}
 
 img {
   object-fit: cover;
@@ -266,12 +291,12 @@ hr {
   height: 1pt;
 }
 
-.logo>span {
+.logo > span {
   color: var(--logo-color);
   text-decoration: none;
 }
 
-.logo>span:hover {
+.logo > span:hover {
   color: var(--logo-hover-color);
 }
 
@@ -280,13 +305,23 @@ hr {
   font-size: 24px;
 }
 
-footer>section {
+footer > section {
   margin-bottom: 1em;
 }
 
 footer h2 {
   font-size: 14pt;
 }
+
+.top-header .metadata {
+  font-size: 90%;
+}
+
+.metadata {
+  font-size: 80%;
+}
+
+
 
 .metadata ul {
   padding-left: 0;
@@ -340,12 +375,16 @@ a.slug {
   font-weight: 200;
 }
 
-body>header {
+body > header {
   margin-bottom: 0.5em;
 }
 * {
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+#grid-wrapper[sidebar="false"]>article{
+  max-width: 100%;
 }
 
 #grid-wrapper>article {
@@ -354,6 +393,10 @@ body>header {
   font-size: 137%;
   overflow-x: auto;
 }
+
+#grid-wrapper[sidebar="false"]>nav{
+  display: none;
+} 
 
 #grid-wrapper>nav {
   width: fit-content;
@@ -369,27 +412,26 @@ body>header {
 }
 
 
-header[parent="false"]{
+header[parent="false"] {
   display: none;
 }
-
 
 @media only screen and (max-width: 1000px) {
   body {
     margin-top: 1em;
-    margin-left: .5em;
-    margin-right: .5em;
-    transition: ease all .2s;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    transition: ease all 0.2s;
   }
 
-  #grid-wrapper>article {
+  #grid-wrapper > article {
     max-width: 100%;
     grid-column: 1;
   }
 
-  #grid-wrapper>nav {
+  #grid-wrapper > nav {
     display: none;
-    transition: ease all .2s;
+    transition: ease all 0.2s;
   }
 }
 
@@ -397,11 +439,10 @@ header[parent="false"]{
   body {
     margin-top: 2em;
     margin-left: 2em;
-    transition: ease all .2s;
+    transition: ease all 0.2s;
   }
 
   #grid-wrapper {
     display: grid;
   }
 }
-
