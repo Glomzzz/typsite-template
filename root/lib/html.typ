@@ -38,8 +38,13 @@
   tag("mark", style: "background: " + color.to-hex() + ";", ..attrs, content)
 }
 
+
 /// Creates a text element with font styles applied.
 ///
+/// - align (horizontal-alignment): "left" | "center" | "right" | none
+///     The horizontal alignment of the text.
+///     If none, no alignment is applied.
+///     If not none, the text will be wrapped in a div with the specified alignment.
 /// - font (str):
 ///     The font family to use for the text.
 /// - style (str): "normal", "italic", "oblique"
@@ -54,10 +59,14 @@
 ///     The letter spacing to apply, as a length value (e.g., 0pt for no tracking).
 /// - spacing (length):
 ///     The word spacing to apply, as a length value (e.g., 0pt for no spacing).
+/// - frame (html-element): "span" | "div" | any HTML element
+///     The HTML element to wrap the text in. Defaults to "span" if align is none.
+///     If align is not none, the text will be wrapped in a "div" element
 /// - content (content):
 ///    The content to be styled with the specified font properties.
 /// -> HTML with font styles applied
 #let text(
+  align: none,
   font: none,
   style: "normal",
   weight: "regular",
@@ -65,6 +74,7 @@
   fill: none,
   tracking: 0pt,
   spacing: 0pt + 100%,
+  frame: span,
   content,
 ) = context {
   let text-size = if type(size) == ratio {
@@ -88,11 +98,9 @@
   let styles = ()
   styles.push("vertical-align: baseline;")
   if font != none {
-    styles.push("font: " + font + ";")
+    styles.push("font-family: " + font + ";")
   }
-  if style != "normal" {
-    styles.push("font-style: " + to-str([#style]) + ";")
-  }
+  styles.push("font-style: " + to-str([#style]) + ";")
   if weight != "regular" {
     styles.push("font-weight: " + to-str([#weight]) + ";")
   }
@@ -108,7 +116,15 @@
   if spacing != 100% + 0pt {
     styles.push("word-spacing: " + to-str([#spacing]) + ";")
   }
-  span(style: styles.join(" "), content)
+  if align != none {
+    styles.push("text-align: " + to-str([#align]) + ";")
+  }
+  let frame = if align == none  {
+    frame
+  } else {
+    div
+  }
+  frame(style: styles.join(" "), content)
 }
 
 /// Creates an HTML element with text alignment applied.

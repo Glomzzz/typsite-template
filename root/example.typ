@@ -1,11 +1,18 @@
 #import "/lib/lib.typ": *
 
-#show: schema.with("page")
+#show: schema.with("page", head: [
+  #unique(html.tag(
+    "link",
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&amp;display=swap",
+  )[])
+])
 
 
 #title[内容示例]
 #date[2025-06-05 07:12]
 #author[Glomzzz]
+#parent("/index.typ")
 
 == 好看的
 
@@ -42,10 +49,28 @@
 
 \
 
+带着好看字体的 Blockquote ：
+
+#block-quote[
+  // 注意本文章的head, 引入了 LXGW WenKai TC 字体
+  #html.text(size: 85%, font: "LXGW WenKai TC", style: "normal", frame: html.div)[
+    Typst 是一种现代化的排版系统，类似于 LaTeX，但设计更为简洁、易学，它主要用于创建学术论文、书籍、报告等需要精美排版的文档。
+
+    你可以在这里查看其官方英文文档：#link("https://typst.app/docs/")[Typst Document]; \
+    对于Typst的中文教程，我强烈推荐：#link("https://typst-doc-cn.github.io/tutorial/introduction.html")[Typst 蓝书]#note[\[天呐，这位编者非常清楚地知道自己是在阐述一套*本体论*!\]].
+  ]
+]
+
+\
+
+数学公式（MathML）：
+
 $
   ker tau & = {[x]_U in V slash U | [x]_W = [0]_W} \
-  & = {[x]_U in V slash U | x in W} \
+          & = {[x]_U in V slash U | x in W}        \
 $
+
+注脚：
 
 #footnote[自然先知的铁树树人, 在7.39b 游戏性版本更新中, 也许永远地离开了我们....] <np>
 
@@ -55,9 +80,7 @@ $
 
 点@rise-up[我]能跳转到 #html.text(fill: red)[*崛起*]!
 
-#details([点我可以看一些好东西])[哈哈, #link("https://www.bilibili.com/video/BV1yaSHYNEen")[#html.text(fill: yellow.darken(15%))[_300颗够吗_]]], 还有#details(
-  [我],
-)[
+#details([点我可以看一些好东西])[哈哈, #link("https://www.bilibili.com/video/BV1yaSHYNEen")[#html.text(fill: yellow.darken(15%))[_300颗够吗_]]], 还有#details([我])[
   #link("https://www.bilibili.com/video/BV1hN411a7Ky")[*永远*没有人看完这把刀塔还能#html.text(fill: purple.darken(15%))[绷得住]，记住，是#html.text(fill: red)[*永远*]]
 ]
 
@@ -74,7 +97,7 @@ Another One Bites the Dust#footnote(<dust>)
     style: "width:100%;max-width:660px;overflow:hidden;border-radius:10px;",
     sandbox: "allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation",
     src: "https://embed.music.apple.com/my/song/time-flows-ever-onward/1749333759",
- )[]
+  )[]
 
   #html.tag(
     "iframe",

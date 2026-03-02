@@ -1,12 +1,11 @@
 {
   description = "Typsite Env";
   inputs = {
-    typst.url = "github:typst/typst/";
+    nixpkgs.url = "github:NixOS/nixpkgs";
     typsite.url = "github:Glomzzz/typsite";
     flake-utils.url = "github:numtide/flake-utils";
   };
   outputs = {
-    typst,
     typsite,
     flake-utils,
     nixpkgs,
@@ -18,9 +17,15 @@
           inherit system;
         };
       in {
+        packages.default = pkgs.mkShell {
+          packages = [
+            pkgs.typst
+            typsite.packages.${system}.default
+          ];
+        };
         devShells.default = pkgs.mkShell {
           packages = [
-            typst.packages.${system}.default
+            pkgs.typst
             typsite.packages.${system}.default
           ];
         };

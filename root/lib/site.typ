@@ -72,5 +72,13 @@
 }
 
 
+#let block-quote(content) = {
+  html.blockquote(class: "block-quote", content)
+}
+
+
+#let note(content) = {
+  html.text(fill: color.rgb("aaaaaa"),content)
+}
 
 

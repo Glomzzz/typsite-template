@@ -7,7 +7,7 @@
 #let default-code-highlight-theme = "forest"
 #let rule-raw(body) = {
   show raw: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it
     }
     let text = it.text
@@ -40,7 +40,7 @@
   import "./site.typ": inline-math
 
   show math.equation: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it
     }
     set text(weight: 500)
@@ -55,7 +55,7 @@
   import mathyml : try-to-mathml
 
   show math.equation: body => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return body
     }
     set text(weight: 500)
@@ -70,7 +70,7 @@
   import "./site.typ": mathml-or-inline
 
   show math.equation: inner => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return inner
     }
     mathml-or-inline(inner)
@@ -81,49 +81,47 @@
 
 #let rule-decorate(body) = {
   show emph: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it
     }
     html.em(it.body)
   }
   show super: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it
     }
     html.tag("sup", it.body)
   }
   show sub: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it
     }
     html.tag("sub", it.body)
   }
   show overline: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it
     }
     html.text-decoration("overline", it.body)
   }
   show underline: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it
     }
     html.text-decoration("underline", it.body)
   }
   show highlight: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it
     }
     html.mark(it.fill, it.body)
   }
   body
 }
-
 // Use before `rule-ref-label`
-#let rule-ref-footnote(body) = context {
-  let footnotes = query(footnote).map(it => it.at("label", default: none)).filter(it => it != none)
+#let rule-ref-footnote(footnotes) = body => {
   show ref: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it.supplement
     }
     let target = it.target
@@ -138,7 +136,7 @@
 #let rule-ref-label(body) = {
   import "./site.typ": link-local-style
   show ref: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it.supplement
     }
     let target = it.target
@@ -149,14 +147,25 @@
   body
 }
 
-#let rule-footnote(body) = {
+#let rule-ref(footnotes) = body => {
+  let body = rule-ref-footnote(footnotes)(body)
+  rule-ref-label(body)
+}
+
+
+#let rule-footnote(footnotes) = body => {
   show footnote: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it
     }
     let body = it.body
     if type(body) == label {
-      return footnote-ref(str(body))
+      for (index, id) in footnotes.enumerate() {
+        if id == body {
+          return footnote-ref(str(id))
+        }
+      }
+      return it
     }
     if not it.has("label") {
       return footnote-def("!numbering", body)
@@ -170,7 +179,7 @@
 #let rule-link-common(body) = {
   import "./site.typ": link-external, link-local
   show link: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it
     }
     let dest = it.dest
@@ -190,14 +199,14 @@
 }
 #let rule-link-anchor(body) = {
   show link: it => context {
-    if inline-content.get() {
+    if inline-content.get() or target() != "html"  {
       return it
     }
     let dest = it.dest
     let dest_type = type(dest)
     // Label(anchor) link
     if dest_type == label {
-      anchor(str(dest))
+      goto(str(dest))
     } else {
       it
     }

@@ -12,7 +12,8 @@
 Typst 是一种现代化的排版系统，类似于 LaTeX，但设计更为简洁、易学，它主要用于创建学术论文、书籍、报告等需要精美排版的文档。
 
 你可以在这里查看其官方英文文档：#link("https://typst.app/docs/")[Typst Document];  \
-对于Typst的中文教程，我强烈推荐：#link("https://typst-doc-cn.github.io/tutorial/introduction.html")[Typst 蓝书]\(_天呐，这位编者非常清楚地知道自己是在阐述一套*本体论*!_\).
+对于Typst的中文教程，我强烈推荐：#link("https://typst-doc-cn.github.io/tutorial/introduction.html")[Typst 蓝书]
+#note[\[天呐，这位编者非常清楚地知道自己是在阐述一套*本体论*!\]].
 
 \
 #html.align(center)[

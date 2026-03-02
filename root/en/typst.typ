@@ -12,7 +12,7 @@ Typst is a modern typesetting system, similar to LaTeX, but designed to be more 
 
 You can find the official English documentation here: #link("https://typst.app/docs/")[Typst Document]; \
 For a Chinese tutorial on Typst, I highly recommend: #link("https://typst-doc-cn.github.io/tutorial/introduction.html")[The Typst Blue Book] \
-(_Oh my, the author is *clearly aware* that they're explaining an *ontology*!_).
+#note[\[Oh my, the author is *clearly aware* that they're explaining an *ontology*!\]].
 
 \
 #html.align(center)[

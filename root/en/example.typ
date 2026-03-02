@@ -1,6 +1,12 @@
 #import "/lib/lib.typ": *
 
-#show: schema.with("page")
+#show: schema.with("page", head: [
+  #unique(html.tag(
+    "link",
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&amp;display=swap",
+  )[])
+])
 
 
 
@@ -47,10 +53,30 @@ This is #LaTeX
 
 \
 
+Blockquote with a nice font:
+
+#block-quote[
+  // Check this article's head, where we imported the LXGW WenKai TC font
+  #html.text(size: 85%, font: "LXGW WenKai TC", style: "normal", frame: html.div)[
+
+    Typst is a modern typesetting system, similar to LaTeX, but designed to be more concise and easier to learn. It is primarily used to create beautifully typeset documents such as academic papers, books, and reports.
+
+    You can find the official English documentation here: #link("https://typst.app/docs/")[Typst Document]; \
+    For a Chinese tutorial on Typst, I highly recommend: #link("https://typst-doc-cn.github.io/tutorial/introduction.html")[The Typst Blue Book] \
+    #note[\[Oh my, the author is *clearly aware* that they're explaining an *ontology*!\]].
+  ]
+]
+
+\
+
+Math time!
+
 $
-  ker tau & = {[x]_U in V slash U | [x]_W = [0]_W}
+  ker tau & = {[x]_U in V slash U | [x]_W = [0]_W} \
   & = {[x]_U in V slash U | x in W}
 $
+
+Section footnote:
 
 #footnote[The Iron Tree Treant of the Nature Prophet may have left us forever... in the 7.39b gameplay update.] <np>
 

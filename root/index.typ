@@ -4,13 +4,9 @@
 #show: schema.with("page")
 
 
-
-
-
 #let _process = {
   import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
   import fletcher.shapes: house, hexagon, circle, rect
-
 
   let blob(pos, label, tint: white, ..args) = node(
     pos,
@@ -173,12 +169,15 @@
 #author[Glomzzz]
 
 #metacontent("process")[
+  #set text(font: "libertinus serif")
   #html.align(center, inline(scale: 200%, block(fill: color.white, _process)))
 ]
 
 #metacontent("icon")[
   #html.align(center, inline(scale: 37.5%, image("icon.png")))
 ]
+
+#set text(font: "Inria Sans") // From .typsite/assets/font
 
 #metacontent("typst-support")[
   #html.align(center)[
@@ -190,7 +189,8 @@
 
 
 
-#html.align(center)[ #cite-title("migrate-to-116.typ") ]
+#html.align(center)[ #cite-title("migrate-to-017.typ") ]
+#html.align(center)[ #cite-title("migrate-to-016.typ") ]
 
 = 介绍
 Typsite 是一个用于构建静态网站的工具，其文章内容由纯 *Typst* 编写，经由 *Typsite* 进行处理后，最终生成一个健全的静态站点。
@@ -356,4 +356,3 @@ Typsite 兼容绝大部分 typst 的原生表达:
 
 = #embed("./article.typ", sidebar: "only_title", open: false)
 #html.align(center)[要不先来看看#cite-title("./example.typ")]
-
