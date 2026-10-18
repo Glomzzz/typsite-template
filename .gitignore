@@ -1,3 +1,5 @@
 .cache/
 publish/
+.typst-packages/
+.typst-package-cache/
 
